@@ -12,12 +12,17 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 
+-- Show number
 vim.o.number = true
 
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help search`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Diagnostic keymaps
+-- Diagnostic 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Clear highlights on search when pressing <Esc> in normal mode
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Forward search
+vim.keymap.set("n", "<leader>s", "/", { noremap = true })
+
+-- Backward search
+vim.keymap.set("n", "<leader>r", "?", { noremap = true })
