@@ -29,4 +29,4 @@ Start Neovim - plugins install automatically.
 Automatically installed via Mason:
 - **pyright** - Python
 - **jsonls** - JSON  
-- **lua_ls** - Lua (Neovim optimized)
+- **lua_ls** - Lua (configured via `.luarc.json`)

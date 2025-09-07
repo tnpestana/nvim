@@ -38,8 +38,8 @@ return {
         map("n", "K", vim.lsp.buf.hover, "Hover docs")
         map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
         map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
-        map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
-        map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+        map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
+        map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
         map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
       end
 
@@ -49,40 +49,27 @@ return {
         automatic_installation = true,
       })
 
-      -- Python: pyright (swap to "basedpyright" if you prefer)
+      -- Python
       lspconfig.pyright.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      -- JSON: vscode-json-languageserver
+      -- JSON
       lspconfig.jsonls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           json = {
             validate = { enable = true },
-            -- Tip: add schema support via "b0o/schemastore.nvim" if you want
-            -- schemas = require("schemastore").json.schemas(),
           },
         },
       })
 
-      -- Lua: lua-language-server (good defaults for Neovim config)
+      -- Lua (configured via .luarc.json)
       lspconfig.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-        settings = {
-          Lua = {
-            runtime = { version = "LuaJIT" },
-            diagnostics = { globals = { "vim" } },
-            workspace = {
-              checkThirdParty = false,
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = { enable = false },
-          },
-        },
       })
     end,
   },

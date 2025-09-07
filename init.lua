@@ -1,8 +1,8 @@
 require("core.keymaps")
-require("core.lazy")
+require("core.plugins")
 
 -- Copy text to system clipboard (enable copy/paste outside of nvim)
-vim.api.nvim_set_option("clipboard", "unnamed")
+vim.api.nvim_set_option_value("clipboard", "unnamed", {})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -14,4 +14,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
-
