@@ -28,4 +28,4 @@ vim.keymap.set("n", "<leader>s", "/", { noremap = true })
 vim.keymap.set("n", "<leader>r", "?", { noremap = true })
 
 -- Neo Tree
-vim.keymap.set("n", "o", "<cmd>Neotree focus<CR>", { desc = "NeoTree focus" })
+vim.keymap.set("n", "<leader>o", "<cmd>Neotree focus<CR>", { desc = "NeoTree focus" })
