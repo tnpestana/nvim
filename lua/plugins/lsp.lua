@@ -12,10 +12,10 @@ return {
     end,
   },
 
-  -- 3) Mason ↔ lspconfig bridge
+  -- 3) LSP configuration (manual setup, no auto-start)
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "neovim/nvim-lspconfig", "williamboman/mason.nvim" },
+    "neovim/nvim-lspconfig",
+    dependencies = { "williamboman/mason.nvim" },
     config = function()
       local lspconfig = require("lspconfig")
 
@@ -43,12 +43,6 @@ return {
         map("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
       end
 
-      -- Ensure these servers are installed
-      require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "jsonls", "lua_ls" },
-        automatic_installation = true,
-      })
-
       -- Python
       lspconfig.pyright.setup({
         on_attach = on_attach,
@@ -66,10 +60,30 @@ return {
         },
       })
 
-      -- Lua (configured via .luarc.json)
+      -- Lua
       lspconfig.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              globals = { "vim", "love" },
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                "${3rd}/luv/library",
+              },
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
       })
     end,
   },
